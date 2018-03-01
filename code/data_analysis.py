@@ -1,7 +1,7 @@
 from common import *
 
 def analysis():
-    df = pd.read_csv("raw_data/crime_processed.csv")
+    df = pd.read_csv("raw_data/crime.csv")
     print "The different columns in the dataset are: ", df.columns.tolist()
     print
     print 'Types of Criminal Activities Reported: ', len(set(df.TYPE.tolist()))
@@ -19,16 +19,17 @@ def analysis():
 
 # Distribution of crimes per day
 
-def plot_crimes_per_day():
-    df = pd.read_csv("raw_data/crime_processed.csv")
-    import matplotlib.pyplot as plt
-    import seaborn as sns
-    plt.figure(figsize=(20,10))
-    plt.tick_params(labelsize=16)
-    plt.title('Distribution of Crimes per day', fontsize=20)
-    plt.xlabel('Crimes Per Day')
-    plt.ylabel('Frequency')
-    sns.distplot(df.resample('D').size(), bins = 50)
+def crimes_per_YEAR():
+    year = 2010
+    mon = 12
+    print "--------------------------------------------------------------------"
+    print "Crimes from: ", year, " and Month: ", mon
+    df = pd.read_csv("raw_data/crime.csv")
+    df = df[df.YEAR == year]
+    df = df[df.MONTH == mon]
+    print df['TYPE'].value_counts().sort_index()
     
 if __name__ == "__main__":
     analysis()   
+    crimes_per_YEAR()
+
