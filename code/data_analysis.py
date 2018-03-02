@@ -1,7 +1,6 @@
 from common import *
 
-def analysis():
-    df = pd.read_csv("raw_data/crime.csv")
+def analysis(df):
     print "The different columns in the dataset are: ", df.columns.tolist()
     print
     print 'Types of Criminal Activities Reported: ', len(set(df.TYPE.tolist()))
@@ -17,19 +16,28 @@ def analysis():
     print "Per Type count values:"
     print df['TYPE'].value_counts().sort_index()
 
-# Distribution of crimes per day
-
-def crimes_per_YEAR():
-    year = 2010
-    mon = 12
+def crimes_per_YEAR(df):
+    year = Input("Enter Year for analysis: ")
+    month = Input("Enter Month for analysis")
     print "--------------------------------------------------------------------"
     print "Crimes from: ", year, " and Month: ", mon
-    df = pd.read_csv("raw_data/crime.csv")
     df = df[df.YEAR == year]
-    df = df[df.MONTH == mon]
+    df = df[df.MONTH == month]
     print df['TYPE'].value_counts().sort_index()
+
+def crimes_per_day(df):
+    df.index = pd.DatetimeIndex(df['DATE'])
+    plt.figure(figsize=(15,6))
+    plt.title('Distribution of Crimes per day', fontsize=16)
+    plt.tick_params(labelsize=14)
+    sns.distplot(df.resample('D').size(), bins=60);
     
 if __name__ == "__main__":
-    analysis()   
-    crimes_per_YEAR()
+    df = pd.read_csv("raw_data/crime.csv")
+    df['DATE'] = df.YEAR.astype('str').map(str) + '/' + df.MONTH.astype('str') + '/' +df.DAY.astype('str')
+    df.DATE = df.DATE.apply(pd.to_datetime).dt.date
+    df['TIME'] = df.HOUR.astype('int64').astype('str') + ':' + df.MINUTE.astype('int64').astype('str')
+    
+    analysis(df)   
+    crimes_per_YEAR(df)
 
