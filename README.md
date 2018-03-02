@@ -1,13 +1,15 @@
 # Kaggle_analysis_crime.vancouver
 
-This is a statistical analysis of crime in vancouver dataset available from kaggle.
+This is a statistical analysis of criminal activities in vancouver dataset available from kaggle.
 Also, different machine learning approaches are being applied to the dataset for prediction modelling. (Under-Development)
 
 **Link to dataset: ** https://www.kaggle.com/wosaku/crime-in-vancouver/data
 
+## Statistical Analysis
+
 **Files to know**
 
-_data_analysis.py_
+**data_analysis.py**
 
 This files provides all the necessary functions to generate initial results from the dataset.
 
@@ -35,3 +37,10 @@ The crime_time_series analysis tries to demonstrate how the number of criminal a
 ![alt text](https://github.com/Arghyadatta/kaggle_analysis_crime.vancouver/blob/master/plots/time_series_analysis.png)
 
 
+## Predictive Modelling
+Here, we are introduced a new column named "Classification" which is set to +1 if the criminal activity occured via Vehicle Collision else everything else is set to -1
+
+**Logistic Regression**
+
+Our main reason to apply logistic regression over linear regression is to regress over a categorical outcome 
+_Results coming soon_
