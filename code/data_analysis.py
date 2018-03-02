@@ -52,6 +52,18 @@ def time_series_crimes_per_day(df):
     plt.tick_params(labelsize=14)
     plt.legend(prop={'size':16});
 
+def data_per_day(df):
+    df.index = pd.DatetimeIndex(df['DATE'])
+    date = Input("Please type a date in the format yyyy-mm-dd")
+    print ("Number of crimes on " + date + " as per records:  ", len(df[date]))
+    print ("Types of crimes on "+date)
+    print df[date]['TYPE'].value_counts()
+    print "--------------------------------------------------------------------"
+    print "Neighbourhood of crimes on "+date
+    print df[date]['NEIGHBORHOOD'].value_counts()
+    print "Hours of crime on "+date
+    print df[date]['HOUR'].value_counts()
+
    
 if __name__ == "__main__":
     df = pd.read_csv("raw_data/crime.csv")
