@@ -5,24 +5,30 @@ def analysis(df):
     print
     print 'Types of Criminal Activities Reported: ', len(set(df.TYPE.tolist()))
     print
+    print "--------------------------------------------------------------------"
     print 'Various Types of Criminal Activities Reported: '
     for i in set(df.TYPE.tolist()): print i
     print
+    print "--------------------------------------------------------------------"
     print "Types of Neighbourhood :", len(set(df.NEIGHBOURHOOD.tolist()))
     print
+    print "--------------------------------------------------------------------"
     print "Various Types of Neighbourhood :"
     for i in set(df.NEIGHBOURHOOD.tolist()): print i
     print
+    print 
+    print "--------------------------------------------------------------------"
     print "Per Type count values:"
     print df['TYPE'].value_counts().sort_index()
 
 def crimes_per_YEAR(df):
-    year = Input("Enter Year for analysis: ")
-    month = Input("Enter Month for analysis")
+    year = input("Enter Year for analysis: ")
+    month = input("Enter Month for analysis")
     print "--------------------------------------------------------------------"
-    print "Crimes from: ", year, " and Month: ", mon
+    print "Crimes from: ", year, " and Month: ", month
     df = df[df.YEAR == year]
     df = df[df.MONTH == month]
+    print 
     print df['TYPE'].value_counts().sort_index()
 
 def crimes_per_day(df):
@@ -31,6 +37,7 @@ def crimes_per_day(df):
     plt.title('Distribution of Crimes per day', fontsize=16)
     plt.tick_params(labelsize=14)
     sns.distplot(df.resample('D').size(), bins=60);
+    plt.show()
 
 def time_series_crimes_per_day(df):
     df.index = pd.DatetimeIndex(df['DATE'])
@@ -51,10 +58,11 @@ def time_series_crimes_per_day(df):
     plt.ylabel('Number of crimes')
     plt.tick_params(labelsize=14)
     plt.legend(prop={'size':16});
+    plt.show()
 
 def data_per_day(df):
     df.index = pd.DatetimeIndex(df['DATE'])
-    date = Input("Please type a date in the format yyyy-mm-dd")
+    date = input("Please type a date in the format yyyy-mm-dd")
     print ("Number of crimes on " + date + " as per records:  ", len(df[date]))
     print ("Types of crimes on "+date)
     print df[date]['TYPE'].value_counts()
@@ -69,8 +77,8 @@ if __name__ == "__main__":
     df = pd.read_csv("raw_data/crime.csv")
     df['DATE'] = df.YEAR.astype('str').map(str) + '/' + df.MONTH.astype('str') + '/' +df.DAY.astype('str')
     df.DATE = df.DATE.apply(pd.to_datetime).dt.date
-    df['TIME'] = df.HOUR.astype('int64').astype('str') + ':' + df.MINUTE.astype('int64').astype('str')
-    
-    analysis(df)   
-    crimes_per_YEAR(df)
+    #analysis(df)   
+    #crimes_per_YEAR(df)
+    #crimes_per_day(df)
+    time_series_crimes_per_day(df)
 
