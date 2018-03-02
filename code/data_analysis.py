@@ -62,7 +62,8 @@ def time_series_crimes_per_day(df):
 
 def data_per_day(df):
     df.index = pd.DatetimeIndex(df['DATE'])
-    date = input("Please type a date in the format yyyy-mm-dd")
+    date = raw_input("Please type a date in the format yyyy-mm-dd :")
+    date = str(date)
     print ("Number of crimes on " + date + " as per records:  ", len(df[date]))
     print ("Types of crimes on "+date)
     print df[date]['TYPE'].value_counts()
@@ -77,8 +78,8 @@ if __name__ == "__main__":
     df = pd.read_csv("raw_data/crime.csv")
     df['DATE'] = df.YEAR.astype('str').map(str) + '/' + df.MONTH.astype('str') + '/' +df.DAY.astype('str')
     df.DATE = df.DATE.apply(pd.to_datetime).dt.date
-    #analysis(df)   
-    #crimes_per_YEAR(df)
-    #crimes_per_day(df)
+    analysis(df)   
+    crimes_per_YEAR(df)
+    crimes_per_day(df)
     time_series_crimes_per_day(df)
-
+    data_per_day(df)
