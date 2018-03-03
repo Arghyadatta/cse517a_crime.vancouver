@@ -38,9 +38,12 @@ The crime_time_series analysis tries to demonstrate how the number of criminal a
 
 
 ## Predictive Modelling
-Here, we are introduced a new column named "Classification" which is set to +1 if the criminal activity occured via Vehicle Collision else everything else is set to -1
+Here, we are introduced a new column named "Classification" which is set to +1 if the criminal activity occured via Vehicle Collision else everything else is set to -1. We ran the ML models over 50,000 data-points due to memory constraints on our computing systems.
 
 **Logistic Regression**
 
-Our main reason to apply logistic regression over linear regression is to regress over a categorical outcome 
-_Results coming soon_
+Our main reason to apply logistic regression over linear regression is to regress over a categorical outcome(+1,-1)
+
+_Results_
+
+![alt text]()
