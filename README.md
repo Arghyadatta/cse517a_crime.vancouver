@@ -47,6 +47,7 @@ Our main reason to apply logistic regression over linear regression is to regres
 _Results_
 
 ROC Curve:
+
 ![alt text](https://github.com/Arghyadatta/kaggle_analysis_crime.vancouver/blob/master/plots/logreg_plot.png)
 
 ![alt text](https://github.com/Arghyadatta/kaggle_analysis_crime.vancouver/blob/master/plots/Screenshot%20from%202018-03-02%2021-05-29.png)
