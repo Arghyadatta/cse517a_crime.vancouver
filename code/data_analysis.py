@@ -73,13 +73,29 @@ def data_per_day(df):
     print "Hours of crime on "+date
     print df[date]['HOUR'].value_counts()
 
+def heat_map(df):
+    df.index = pd.DatetimeIndex(df['DATE'])
+    # removing the outlier for our estimates
+    df_pivot = df[df.DATE != '2011-06-15'].pivot_table(values = 'YEAR', index = 'DAY', columns = 'MONTH', aggfunc = len)
+    df_pivot_year_count = df[df.DATE != '2011-06-15'].pivot_table(values = 'YEAR', index = 'DAY', columns = 'MONTH', aggfunc=lambda x: len(x.unique()))
+    avg = df_pivot/df_pivot_year_count
+    mons = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    plt.figure(figsize = (10,12))
+    plt.title('Heat Map of crime per day and month')
+    sns.heatmap(avg.round(), cmap='seismic', linecolor='grey',linewidth =0.1, cbar=False, annot=True, fmt=".0f")
+    plt.show()
    
 if __name__ == "__main__":
     df = pd.read_csv("raw_data/crime.csv")
     df['DATE'] = df.YEAR.astype('str').map(str) + '/' + df.MONTH.astype('str') + '/' +df.DAY.astype('str')
     df.DATE = df.DATE.apply(pd.to_datetime).dt.date
-    analysis(df)   
-    crimes_per_YEAR(df)
-    crimes_per_day(df)
-    time_series_crimes_per_day(df)
-    data_per_day(df)
+    #analysis(df)   
+    #crimes_per_YEAR(df)
+    #crimes_per_day(df)
+    #time_series_crimes_per_day(df)
+    #data_per_day(df)
+    heat_map(df) 
+
+
+
+
